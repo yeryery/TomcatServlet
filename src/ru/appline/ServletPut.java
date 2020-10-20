@@ -20,6 +20,8 @@ public class ServletPut extends HttpServlet {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        PrintWriter pw = response.getWriter();
         StringBuffer jb = new StringBuffer();
         String line;
         try {
@@ -35,20 +37,16 @@ public class ServletPut extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         int id = jobj.get("id").getAsInt();
-        User replacedUser = model.getFromList().get(id);
+        String name = jobj.get("name").getAsString();
+        String surname = jobj.get("surname").getAsString();
+        double salary = jobj.get("salary").getAsDouble();
+        User newUser = new User(name, surname, salary);
+        User oldUser = model.put(newUser, id);
 
-        response.setContentType("application/json;charset=utf-8");
-        PrintWriter pw = response.getWriter();
-
-        if (replacedUser == null) {
-            pw.println("Error! Такого пользователя нет! ((((");
+        if (oldUser == null) {
+            pw.println("Такого пользователя нет! ((((");
         } else {
-            String name = jobj.get("name").getAsString();
-            String surname = jobj.get("surname").getAsString();
-            double salary = jobj.get("salary").getAsDouble();
-            User newUser = new User(name, surname, salary);
-            model.add(newUser, id);
-            pw.println(gson.toJson(model.getFromList()));
+            pw.println(gson.toJson(oldUser));
         }
     }
 }

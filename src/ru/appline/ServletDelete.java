@@ -22,13 +22,12 @@ public class ServletDelete extends HttpServlet {
         PrintWriter pw = response.getWriter();
 
         int id = Integer.parseInt(request.getParameter("id"));
-        User deletedUser =  model.getFromList().get(id);
+        User deletedUser =  model.delete(id);
 
         if (deletedUser == null) {
-            pw.println("Error! Такого пользователя нет! ((((");
+            pw.println("Такого пользователя нет! ((((");
         } else {
-            model.delete(id);
-            pw.println(gson.toJson(model.getFromList()));
+            pw.println(gson.toJson(deletedUser));
         }
     }
 }

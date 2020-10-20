@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @WebServlet(urlPatterns = "/add")
@@ -24,26 +21,6 @@ public class ServletAdd extends HttpServlet {
     private Model model = Model.getInstance();
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    /*
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=utf-8");
-        request.setCharacterEncoding("UTF-8");
-        PrintWriter pw = response.getWriter();
-
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-        double salary = Double.parseDouble(request.getParameter("salary"));
-
-        User user = new User(name, surname, salary);
-        model.add(user, counter.getAndIncrement());
-
-        pw.println("<html>"+
-                "<h3>Пользователь "+ name +" "+ surname +" с зарплатой "+ salary +" успешно создан!<h3>"+
-                "<a href=\"addUser.html\">Создать нового пользователя</a><br/>"+
-                "<a href=\"index.jsp\">Домой</a>"+
-                "</html>");
-    }
-    */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         StringBuffer jb = new StringBuffer();
         String line;

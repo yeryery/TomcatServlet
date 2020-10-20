@@ -24,12 +24,12 @@ public class Model implements Serializable {
         model.put(id, user);
     }
 
-    public void delete(int id) {
-        model.remove(id);
+    public User delete(int id) {
+        return model.remove(id);
     }
 
-    public void put(int id) {
-        model.remove(id);
+    public User put(User user, int id) throws NullPointerException {
+        return model.put(id, user);
     }
 
     public Map<Integer, User> getFromList() {
